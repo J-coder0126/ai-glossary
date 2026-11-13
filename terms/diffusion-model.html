@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>擴散模型｜AI 名詞小百科</title>
+  <meta name="description" content="學會一步步把雜訊去除，從純雜訊中還原出一張全新的圖片。">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-page="term" data-slug="diffusion-model" data-root="..">
+  <div id="site-header"></div>
+
+  <main class="container term">
+    <nav class="breadcrumb"><a href="../index.html">全部名詞</a> › 擴散模型</nav>
+    <header class="term-head">
+      <h1>擴散模型 <span class="en">Diffusion Model</span></h1>
+      <div id="term-meta" class="term-meta"></div>
+    </header>
+
+    <section id="definition" class="tldr">
+      <h2>一句話定義</h2>
+      <p>學會一步步把雜訊去除，從純雜訊中還原出一張全新的圖片。</p>
+    </section>
+
+    <section id="analogy">
+      <h2>白話比喻</h2>
+      <p>把一滴墨水滴進清水，它會慢慢擴散到看不出形狀，這是「加噪」。擴散模型學的是把這段影片「倒帶」：從一杯均勻的混濁水開始，每一步都推測墨水原本在哪，最後還原出清楚的圖案。</p>
+    </section>
+
+    <section id="how-it-works">
+      <h2>運作原理</h2>
+      <ol class="steps">
+        <li><strong>前向加噪</strong>：對真實圖片逐步加入高斯雜訊，經過 T 步（例如 1000 步）後變成幾乎純雜訊。這一步不需要學習。</li>
+        <li><strong>訓練去噪網路</strong>：隨機挑一個步數 t，給網路（U-Net 或 Transformer）一張加噪圖，要它預測加進去的雜訊。</li>
+        <li><strong>反向生成</strong>：從純雜訊出發，反覆用網路預測並扣掉雜訊，一步步得到清晰圖片。</li>
+        <li><strong>文字條件控制</strong>：把提示詞的嵌入透過交叉注意力注入去噪網路，並用 Classifier-Free Guidance 加強「貼合提示詞」的程度。</li>
+        <li><strong>潛在擴散</strong>：先用 VAE 把圖片壓縮到潛在空間，在小空間裡做擴散，最後再解碼回圖片，大幅降低運算量。</li>
+      </ol>
+    </section>
+
+    <section id="formula">
+      <h2>關鍵公式</h2>
+      <pre class="formula">x_t = √ᾱ_t · x₀ + √(1 − ᾱ_t) · ε          （前向：任意步數一次加噪）
+L   = ‖ ε − ε_θ(x_t, t) ‖²                  （訓練：預測雜訊）</pre>
+      <p>第 t 步的圖是「原圖」與「雜訊」按比例混合；模型的工作只是猜出混進去的雜訊是什麼。</p>
+    </section>
+
+    <section id="examples">
+      <h2>代表模型與應用</h2>
+      <ul class="examples">
+        <li><strong>DDPM</strong>（2020）：奠定現代擴散模型訓練方式的關鍵論文。</li>
+        <li><strong>Latent Diffusion / Stable Diffusion</strong>（2022）：在 VAE 潛在空間中擴散，讓一般顯示卡也能文字生圖。</li>
+        <li><strong>DALL·E 2、Imagen</strong>（2022）：大型文字生圖系統，皆以擴散模型為核心。</li>
+        <li><strong>影片與音訊生成</strong>：同樣的「去噪」概念延伸到影片、音樂與語音生成。</li>
+      </ul>
+    </section>
+
+    <section id="misconceptions">
+      <h2>常見誤解</h2>
+      <ul class="myths">
+        <li><span class="myth">誤解：</span>擴散模型是把資料庫裡的圖片剪貼拼湊起來。<br><span class="fact">其實：</span>它生成時從隨機雜訊出發，靠學到的統計規律逐步去噪，並不會在生成時去查詢或拼貼原圖。</li>
+        <li><span class="myth">誤解：</span>擴散模型一定要跑上千步，所以很慢。<br><span class="fact">其實：</span>訓練時用上千步，但 DDIM 等取樣法與蒸餾技術可把生成縮減到數十步、甚至 1～4 步。</li>
+      </ul>
+    </section>
+
+    <section id="related">
+      <h2>相關名詞</h2>
+      <div id="related-list" class="card-grid small"></div>
+    </section>
+
+    <section id="references">
+      <h2>延伸閱讀</h2>
+      <ul>
+        <li>Ho, Jain &amp; Abbeel（2020）．<a href="https://arxiv.org/abs/2006.11239">〈Denoising Diffusion Probabilistic Models〉</a></li>
+        <li>Rombach et al.（2022）．<a href="https://arxiv.org/abs/2112.10752">〈High-Resolution Image Synthesis with Latent Diffusion Models〉</a></li>
+      </ul>
+    </section>
+
+    <nav id="pager" class="pager" aria-label="上一個與下一個名詞"></nav>
+  </main>
+
+  <div id="site-footer"></div>
+  <script src="../data/terms.js"></script>
+  <script src="../assets/main.js"></script>
+</body>
+</html>

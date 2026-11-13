@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Transformer 架構｜AI 名詞小百科</title>
+  <meta name="description" content="以自注意力為核心、能平行處理整段序列的神經網路架構，是 LLM 的基礎。">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-page="term" data-slug="transformer" data-root="..">
+  <div id="site-header"></div>
+
+  <main class="container term">
+    <nav class="breadcrumb"><a href="../index.html">全部名詞</a> › Transformer 架構</nav>
+    <header class="term-head">
+      <h1>Transformer 架構 <span class="en">Transformer</span></h1>
+      <div id="term-meta" class="term-meta"></div>
+    </header>
+
+    <section id="definition" class="tldr">
+      <h2>一句話定義</h2>
+      <p>以自注意力為核心、能平行處理整段序列的神經網路架構，是 LLM 的基礎。</p>
+    </section>
+
+    <section id="analogy">
+      <h2>白話比喻</h2>
+      <p>舊的 RNN 像「傳話遊戲」，訊息必須一個人一個人往下傳，傳到後面就走樣了。Transformer 像一場「圓桌會議」，每個人都能同時聽到所有人的發言，再決定要重視誰的意見，又快又不容易遺漏。</p>
+    </section>
+
+    <section id="how-it-works">
+      <h2>運作原理</h2>
+      <ol class="steps">
+        <li><strong>輸入嵌入 + 位置資訊</strong>：token 先轉成向量，再加上位置編碼，因為注意力本身不知道詞的先後順序。</li>
+        <li><strong>多頭自注意力</strong>：每個 token 參考整段序列，融合上下文資訊。</li>
+        <li><strong>前饋網路（FFN）</strong>：對每個位置各自做非線性轉換，加工剛融合的資訊。</li>
+        <li><strong>殘差連接 + 正規化，堆疊 N 層</strong>：每個子層都有捷徑連線與 LayerNorm，讓深層網路穩定訓練；GPT 類模型可堆到數十層以上。</li>
+        <li><strong>輸出</strong>：Decoder-only 模型（如 GPT）加上因果遮罩，只能看前文，輸出下一個 token 的機率分佈，一個一個生成。</li>
+      </ol>
+    </section>
+
+    <section id="formula">
+      <h2>關鍵公式</h2>
+      <pre class="formula">h = x + MultiHeadAttention( LayerNorm(x) )
+y = h + FFN( LayerNorm(h) )</pre>
+      <p>一個 Transformer 區塊就是「注意力 + 前饋網路」，各自外面包一層「加回原輸入」的殘差連接（此為常見的 Pre-LN 寫法）。</p>
+    </section>
+
+    <section id="examples">
+      <h2>代表模型與應用</h2>
+      <ul class="examples">
+        <li><strong>BERT</strong>（2018）：Encoder-only，擅長理解類任務，例如分類、問答。</li>
+        <li><strong>GPT 系列</strong>（2018–）：Decoder-only，逐字生成文字，是 ChatGPT 等聊天機器人的基礎。</li>
+        <li><strong>T5</strong>（2019）：Encoder-Decoder，把所有任務都當成「文字轉文字」。</li>
+        <li><strong>ViT</strong>（2020）：把圖片切成小塊當 token，證明 Transformer 也能做影像辨識。</li>
+      </ul>
+    </section>
+
+    <section id="misconceptions">
+      <h2>常見誤解</h2>
+      <ul class="myths">
+        <li><span class="myth">誤解：</span>Transformer 只能處理文字。<br><span class="fact">其實：</span>只要能切成序列就能處理，圖片（ViT）、聲音、影片，甚至擴散模型的去噪網路都有 Transformer 版本。</li>
+        <li><span class="myth">誤解：</span>Transformer = ChatGPT。<br><span class="fact">其實：</span>Transformer 是架構；ChatGPT 是在此架構上經過大規模預訓練、指令微調與人類回饋強化學習後的產品。</li>
+      </ul>
+    </section>
+
+    <section id="related">
+      <h2>相關名詞</h2>
+      <div id="related-list" class="card-grid small"></div>
+    </section>
+
+    <section id="references">
+      <h2>延伸閱讀</h2>
+      <ul>
+        <li>Vaswani et al.（2017）．<a href="https://arxiv.org/abs/1706.03762">〈Attention Is All You Need〉</a></li>
+        <li>Devlin et al.（2018）．<a href="https://arxiv.org/abs/1810.04805">〈BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding〉</a></li>
+        <li>Dosovitskiy et al.（2020）．<a href="https://arxiv.org/abs/2010.11929">〈An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale〉</a></li>
+      </ul>
+    </section>
+
+    <nav id="pager" class="pager" aria-label="上一個與下一個名詞"></nav>
+  </main>
+
+  <div id="site-footer"></div>
+  <script src="../data/terms.js"></script>
+  <script src="../assets/main.js"></script>
+</body>
+</html>

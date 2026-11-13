@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Token 化（斷詞）｜AI 名詞小百科</title>
+  <meta name="description" content="把文字切成模型能處理的最小單位 token，再轉成整數編號。">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-page="term" data-slug="tokenization" data-root="..">
+  <div id="site-header"></div>
+
+  <main class="container term">
+    <nav class="breadcrumb"><a href="../index.html">全部名詞</a> › Token 化（斷詞）</nav>
+    <header class="term-head">
+      <h1>Token 化（斷詞） <span class="en">Tokenization</span></h1>
+      <div id="term-meta" class="term-meta"></div>
+    </header>
+
+    <section id="definition" class="tldr">
+      <h2>一句話定義</h2>
+      <p>把文字切成模型能處理的最小單位 token，再轉成整數編號。</p>
+    </section>
+
+    <section id="analogy">
+      <h2>白話比喻</h2>
+      <p>就像把一座樂高城堡拆回一顆顆標準積木：模型看不懂「句子」，只認得固定規格的積木（token）和它們的型號（ID）。常見的字會是一整塊大積木，罕見的字則被拆成好幾塊小積木。</p>
+    </section>
+
+    <section id="how-it-works">
+      <h2>運作原理</h2>
+      <ol class="steps">
+        <li><strong>建立詞彙表</strong>：在大量文本上統計，例如 BPE 會反覆把「最常一起出現的兩個片段」合併成新 token，直到詞彙表達到設定大小（常見 3 萬～20 萬個）。</li>
+        <li><strong>切分</strong>：輸入文字依詞彙表切成 token 序列，例如「生成式AI」可能被切成「生成 / 式 / AI」。</li>
+        <li><strong>轉成 ID</strong>：每個 token 查表換成一個整數，模型實際接收的是一串數字。</li>
+        <li><strong>加入特殊 token</strong>：加上「句首」「句尾」「填充」等特殊記號，讓模型知道邊界。</li>
+      </ol>
+    </section>
+
+    <section id="formula">
+      <h2>關鍵公式</h2>
+      <pre class="formula">"我喜歡 AI" → ["我", "喜歡", " AI"] → [ID₁, ID₂, ID₃]   （示意）</pre>
+      <p>Token 化本身沒有數學公式，它是一個「文字 → 片段 → 整數」的查表流程；實際切法與 ID 取決於各模型的詞彙表。</p>
+    </section>
+
+    <section id="examples">
+      <h2>代表模型與應用</h2>
+      <ul class="examples">
+        <li><strong>BPE（Byte Pair Encoding）</strong>（2016）：GPT 系列採用的子詞切分法。</li>
+        <li><strong>WordPiece</strong>（2016）：BERT 使用的切分法，與 BPE 類似但合併標準不同。</li>
+        <li><strong>SentencePiece</strong>（2018）：直接處理原始字串、不依賴空白斷詞，適合中文與日文，T5、LLaMA 等模型採用。</li>
+        <li><strong>API 計費</strong>：各家 LLM API 都以 token 數計算費用與上下文長度。</li>
+      </ul>
+    </section>
+
+    <section id="misconceptions">
+      <h2>常見誤解</h2>
+      <ul class="myths">
+        <li><span class="myth">誤解：</span>1 個 token 就是 1 個字或 1 個英文單字。<br><span class="fact">其實：</span>不一定。常見詞可能一個 token，罕見中文字可能被拆成 2～3 個 token；同一段話在不同模型的 token 數也不同。</li>
+        <li><span class="myth">誤解：</span>模型「看得到」每個字母。<br><span class="fact">其實：</span>模型看到的是 token，所以「數某個單字有幾個 r」這類問題對 LLM 反而困難。</li>
+      </ul>
+    </section>
+
+    <section id="related">
+      <h2>相關名詞</h2>
+      <div id="related-list" class="card-grid small"></div>
+    </section>
+
+    <section id="references">
+      <h2>延伸閱讀</h2>
+      <ul>
+        <li>Sennrich, Haddow &amp; Birch（2016）．<a href="https://arxiv.org/abs/1508.07909">〈Neural Machine Translation of Rare Words with Subword Units〉</a></li>
+        <li>Kudo &amp; Richardson（2018）．<a href="https://arxiv.org/abs/1808.06226">〈SentencePiece: A simple and language independent subword tokenizer〉</a></li>
+      </ul>
+    </section>
+
+    <nav id="pager" class="pager" aria-label="上一個與下一個名詞"></nav>
+  </main>
+
+  <div id="site-footer"></div>
+  <script src="../data/terms.js"></script>
+  <script src="../assets/main.js"></script>
+</body>
+</html>

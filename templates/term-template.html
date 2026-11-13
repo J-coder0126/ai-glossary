@@ -1,0 +1,85 @@
+<!doctype html>
+<!--
+  名詞頁樣板（CLAUDE.md 第 5.2、7 節）
+  使用方式：複製到 terms/{{slug}}.html，取代所有 {{...}}，刪除所有註解。
+  章節順序與 id 不可更動；formula 章節沒有公式時整段刪除。
+-->
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{中文名稱}}｜AI 名詞小百科</title>
+  <meta name="description" content="{{與 terms.js summary 相同的一句話摘要}}">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-page="term" data-slug="{{slug}}" data-root="..">
+  <div id="site-header"></div>
+
+  <main class="container term">
+    <nav class="breadcrumb"><a href="../index.html">全部名詞</a> › {{中文名稱}}</nav>
+    <header class="term-head">
+      <h1>{{中文名稱}} <span class="en">{{English Name}}（{{縮寫，沒有就刪掉括號}}）</span></h1>
+      <div id="term-meta" class="term-meta"></div><!-- 由 main.js 產生 -->
+    </header>
+
+    <section id="definition" class="tldr">
+      <h2>一句話定義</h2>
+      <p>{{一句話、40 字以內、不含公式}}</p>
+    </section>
+
+    <section id="analogy">
+      <h2>白話比喻</h2>
+      <p>{{用生活中的例子比喻，一段}}</p>
+    </section>
+
+    <section id="how-it-works">
+      <h2>運作原理</h2>
+      <ol class="steps">
+        <li><strong>{{步驟名稱}}</strong>：{{說明}}</li>
+        <li><strong>{{步驟名稱}}</strong>：{{說明}}</li>
+        <li><strong>{{步驟名稱}}</strong>：{{說明}}</li>
+      </ol>
+    </section>
+
+    <!-- 選填：沒有公式就刪除整個 section -->
+    <section id="formula">
+      <h2>關鍵公式</h2>
+      <pre class="formula">{{純文字公式}}</pre>
+      <p>{{一句白話解釋公式在說什麼}}</p>
+    </section>
+
+    <section id="examples">
+      <h2>代表模型與應用</h2>
+      <ul class="examples">
+        <li><strong>{{名稱}}</strong>（{{年份}}）：{{一句說明}}</li>
+        <li><strong>{{名稱}}</strong>（{{年份}}）：{{一句說明}}</li>
+      </ul>
+    </section>
+
+    <section id="misconceptions">
+      <h2>常見誤解</h2>
+      <ul class="myths">
+        <li><span class="myth">誤解：</span>{{常見的錯誤想法}}<br><span class="fact">其實：</span>{{正確說法}}</li>
+      </ul>
+    </section>
+
+    <section id="related">
+      <h2>相關名詞</h2>
+      <div id="related-list" class="card-grid small"></div><!-- 由 main.js 依 terms.js 產生，勿手寫 -->
+    </section>
+
+    <section id="references">
+      <h2>延伸閱讀</h2>
+      <ul>
+        <li>{{作者}}（{{年份}}）．<a href="{{連結}}">〈{{標題}}〉</a></li>
+      </ul>
+    </section>
+
+    <nav id="pager" class="pager" aria-label="上一個與下一個名詞"></nav><!-- 由 main.js 產生 -->
+  </main>
+
+  <div id="site-footer"></div>
+  <script src="../data/terms.js"></script>
+  <script src="../assets/main.js"></script>
+</body>
+</html>

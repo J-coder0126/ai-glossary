@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>注意力機制｜AI 名詞小百科</title>
+  <meta name="description" content="讓模型計算每個位置該「關注」其他位置多少，再加權彙整資訊。">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-page="term" data-slug="attention" data-root="..">
+  <div id="site-header"></div>
+
+  <main class="container term">
+    <nav class="breadcrumb"><a href="../index.html">全部名詞</a> › 注意力機制</nav>
+    <header class="term-head">
+      <h1>注意力機制 <span class="en">Attention Mechanism</span></h1>
+      <div id="term-meta" class="term-meta"></div>
+    </header>
+
+    <section id="definition" class="tldr">
+      <h2>一句話定義</h2>
+      <p>讓模型計算每個位置該「關注」其他位置多少，再加權彙整資訊。</p>
+    </section>
+
+    <section id="analogy">
+      <h2>白話比喻</h2>
+      <p>讀到「小明把書還給小華，因為<strong>他</strong>讀完了」時，你會自動回頭看「小明」來理解「他」。注意力機制就是讓模型對每個詞都做這件事：決定該回頭看哪些詞、各看多少。</p>
+    </section>
+
+    <section id="how-it-works">
+      <h2>運作原理</h2>
+      <ol class="steps">
+        <li><strong>產生 Q、K、V</strong>：每個 token 的向量分別乘上三個矩陣，得到查詢（Query）、鍵（Key）、值（Value）。</li>
+        <li><strong>算相關分數</strong>：拿自己的 Q 和所有 token 的 K 做內積，分數越高代表越相關，再除以 √dₖ 避免數值過大。</li>
+        <li><strong>轉成權重</strong>：用 softmax 把分數變成總和為 1 的比例。</li>
+        <li><strong>加權平均</strong>：依權重把所有 V 加總，得到融合上下文的新向量。</li>
+        <li><strong>多頭並行</strong>：同時做好幾組（multi-head），每組可學到不同關係，例如文法、指代、語意。</li>
+      </ol>
+    </section>
+
+    <section id="formula">
+      <h2>關鍵公式</h2>
+      <pre class="formula">Attention(Q, K, V) = softmax( Q·Kᵀ / √dₖ ) · V</pre>
+      <p>先用 Q 和 K 算「誰跟誰有關」，再用這份關聯表去加權 V 的內容。</p>
+    </section>
+
+    <section id="examples">
+      <h2>代表模型與應用</h2>
+      <ul class="examples">
+        <li><strong>Bahdanau Attention</strong>（2014）：最早用於機器翻譯，讓解碼器對齊原文的不同位置。</li>
+        <li><strong>自注意力（Self-Attention）</strong>（2017）：Transformer 的核心，GPT、BERT 都靠它理解上下文。</li>
+        <li><strong>交叉注意力（Cross-Attention）</strong>：Stable Diffusion 用它把文字提示詞的資訊注入影像生成過程。</li>
+      </ul>
+    </section>
+
+    <section id="misconceptions">
+      <h2>常見誤解</h2>
+      <ul class="myths">
+        <li><span class="myth">誤解：</span>注意力權重就是模型「為什麼這樣回答」的完整解釋。<br><span class="fact">其實：</span>權重只是內部計算的一部分，經過多層多頭與其他模組後，並不能直接等同於因果解釋。</li>
+        <li><span class="myth">誤解：</span>注意力是 Transformer 發明的。<br><span class="fact">其實：</span>2014 年就已用在 RNN 翻譯模型上；Transformer 的突破是「只用注意力、拿掉 RNN」。</li>
+      </ul>
+    </section>
+
+    <section id="related">
+      <h2>相關名詞</h2>
+      <div id="related-list" class="card-grid small"></div>
+    </section>
+
+    <section id="references">
+      <h2>延伸閱讀</h2>
+      <ul>
+        <li>Bahdanau, Cho &amp; Bengio（2014）．<a href="https://arxiv.org/abs/1409.0473">〈Neural Machine Translation by Jointly Learning to Align and Translate〉</a></li>
+        <li>Vaswani et al.（2017）．<a href="https://arxiv.org/abs/1706.03762">〈Attention Is All You Need〉</a></li>
+      </ul>
+    </section>
+
+    <nav id="pager" class="pager" aria-label="上一個與下一個名詞"></nav>
+  </main>
+
+  <div id="site-footer"></div>
+  <script src="../data/terms.js"></script>
+  <script src="../assets/main.js"></script>
+</body>
+</html>

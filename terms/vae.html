@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>變分自編碼器｜AI 名詞小百科</title>
+  <meta name="description" content="把資料壓縮成有規律的機率潛在空間，再從中取樣解碼出新資料。">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-page="term" data-slug="vae" data-root="..">
+  <div id="site-header"></div>
+
+  <main class="container term">
+    <nav class="breadcrumb"><a href="../index.html">全部名詞</a> › 變分自編碼器</nav>
+    <header class="term-head">
+      <h1>變分自編碼器 <span class="en">Variational Autoencoder（VAE）</span></h1>
+      <div id="term-meta" class="term-meta"></div>
+    </header>
+
+    <section id="definition" class="tldr">
+      <h2>一句話定義</h2>
+      <p>把資料壓縮成有規律的機率潛在空間，再從中取樣解碼出新資料。</p>
+    </section>
+
+    <section id="analogy">
+      <h2>白話比喻</h2>
+      <p>想像畫家用「大約多少歲、臉型偏圓、頭髮中長」這種帶點模糊範圍的描述記住一張臉，而不是記下每個像素。因為描述是一個範圍，從範圍中隨便挑一組特徵，也能畫出一張合理的新臉。</p>
+    </section>
+
+    <section id="how-it-works">
+      <h2>運作原理</h2>
+      <ol class="steps">
+        <li><strong>編碼器</strong>：把輸入圖片壓縮，輸出潛在分佈的平均值 μ 與標準差 σ，而不是單一一點。</li>
+        <li><strong>重參數化取樣</strong>：用 z = μ + σ ⊙ ε（ε 為標準常態雜訊）取樣，讓取樣過程也能反向傳播訓練。</li>
+        <li><strong>解碼器</strong>：把 z 還原成圖片。</li>
+        <li><strong>兩種損失一起最佳化</strong>：重建損失要求還原得像，KL 散度要求潛在分佈接近標準常態，讓潛在空間連續又整齊。</li>
+        <li><strong>生成</strong>：訓練完後直接從標準常態取樣 z，丟進解碼器即可得到新圖片。</li>
+      </ol>
+    </section>
+
+    <section id="formula">
+      <h2>關鍵公式</h2>
+      <pre class="formula">ELBO = E_q(z|x)[ log p(x|z) ] − KL( q(z|x) ‖ p(z) )</pre>
+      <p>最大化這個下界：前項讓圖片能被還原，後項讓潛在空間保持規律、好取樣。</p>
+    </section>
+
+    <section id="examples">
+      <h2>代表模型與應用</h2>
+      <ul class="examples">
+        <li><strong>VAE</strong>（2013）：Kingma 與 Welling 提出的原始架構。</li>
+        <li><strong>VQ-VAE</strong>（2017）：把潛在空間改成離散的「碼本」，影響了後續許多圖像與語音生成模型。</li>
+        <li><strong>Stable Diffusion 的 VAE</strong>（2022）：把 512×512 的圖壓到 64×64 的潛在空間，讓擴散模型在小空間中運算，大幅節省計算量。</li>
+      </ul>
+    </section>
+
+    <section id="misconceptions">
+      <h2>常見誤解</h2>
+      <ul class="myths">
+        <li><span class="myth">誤解：</span>VAE 生成的圖都很模糊，所以沒用了。<br><span class="fact">其實：</span>單獨使用時確實偏模糊，但它作為「壓縮器」是現代潛在擴散模型不可或缺的元件。</li>
+        <li><span class="myth">誤解：</span>VAE 就是一般的自編碼器（Autoencoder）。<br><span class="fact">其實：</span>一般自編碼器只學壓縮與還原，潛在空間雜亂；VAE 多了機率建模與 KL 約束，才能從中取樣生成新資料。</li>
+      </ul>
+    </section>
+
+    <section id="related">
+      <h2>相關名詞</h2>
+      <div id="related-list" class="card-grid small"></div>
+    </section>
+
+    <section id="references">
+      <h2>延伸閱讀</h2>
+      <ul>
+        <li>Kingma &amp; Welling（2013）．<a href="https://arxiv.org/abs/1312.6114">〈Auto-Encoding Variational Bayes〉</a></li>
+        <li>van den Oord, Vinyals &amp; Kavukcuoglu（2017）．<a href="https://arxiv.org/abs/1711.00937">〈Neural Discrete Representation Learning〉</a></li>
+      </ul>
+    </section>
+
+    <nav id="pager" class="pager" aria-label="上一個與下一個名詞"></nav>
+  </main>
+
+  <div id="site-footer"></div>
+  <script src="../data/terms.js"></script>
+  <script src="../assets/main.js"></script>
+</body>
+</html>

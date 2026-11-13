@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>生成對抗網路｜AI 名詞小百科</title>
+  <meta name="description" content="生成器負責造假、判別器負責抓假，兩者互相競爭直到假圖以假亂真。">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-page="term" data-slug="gan" data-root="..">
+  <div id="site-header"></div>
+
+  <main class="container term">
+    <nav class="breadcrumb"><a href="../index.html">全部名詞</a> › 生成對抗網路</nav>
+    <header class="term-head">
+      <h1>生成對抗網路 <span class="en">Generative Adversarial Network（GAN）</span></h1>
+      <div id="term-meta" class="term-meta"></div>
+    </header>
+
+    <section id="definition" class="tldr">
+      <h2>一句話定義</h2>
+      <p>生成器負責造假、判別器負責抓假，兩者互相競爭直到假圖以假亂真。</p>
+    </section>
+
+    <section id="analogy">
+      <h2>白話比喻</h2>
+      <p>偽鈔集團（生成器）和驗鈔員（判別器）的軍備競賽：驗鈔員越來越會抓假鈔，偽鈔集團就被逼著做得越來越逼真，最後連驗鈔員都只能用猜的。</p>
+    </section>
+
+    <section id="how-it-works">
+      <h2>運作原理</h2>
+      <ol class="steps">
+        <li><strong>生成器 G</strong>：輸入一組隨機雜訊 z，輸出一張假圖 G(z)。</li>
+        <li><strong>判別器 D</strong>：輸入一張圖，輸出「這張是真圖」的機率。</li>
+        <li><strong>訓練 D</strong>：給它真圖與 G 產生的假圖，讓它學會分辨。</li>
+        <li><strong>訓練 G</strong>：固定 D，調整 G 讓 D 誤判假圖為真。</li>
+        <li><strong>交替重複</strong>：理想上會達到平衡，D 對真假只能各猜 50%，此時 G 產生的分佈接近真實資料。</li>
+      </ol>
+    </section>
+
+    <section id="formula">
+      <h2>關鍵公式</h2>
+      <pre class="formula">min_G max_D  E_x[ log D(x) ] + E_z[ log(1 − D(G(z))) ]</pre>
+      <p>D 想把這個值推高（真圖判真、假圖判假），G 想把它壓低（讓假圖被判成真），這就是「對抗」的數學形式。</p>
+    </section>
+
+    <section id="examples">
+      <h2>代表模型與應用</h2>
+      <ul class="examples">
+        <li><strong>DCGAN</strong>（2015）：把卷積網路引入 GAN，讓訓練穩定許多。</li>
+        <li><strong>pix2pix / CycleGAN</strong>（2017）：圖片轉圖片，例如素描變照片、馬變斑馬。</li>
+        <li><strong>StyleGAN</strong>（2019）：生成高解析度、逼真的人臉，可分層控制風格。</li>
+        <li><strong>影像超解析與加速</strong>：GAN 損失仍常用於超解析度，以及擴散模型的少步數蒸餾。</li>
+      </ul>
+    </section>
+
+    <section id="misconceptions">
+      <h2>常見誤解</h2>
+      <ul class="myths">
+        <li><span class="myth">誤解：</span>有了擴散模型，GAN 已經完全過時。<br><span class="fact">其實：</span>GAN 生成只需一次前向計算、速度極快，在即時應用、超解析度與擴散模型加速中仍被廣泛使用。</li>
+        <li><span class="myth">誤解：</span>訓練越久，生成的圖一定越多樣。<br><span class="fact">其實：</span>GAN 常遇到「模式崩塌（mode collapse）」，生成器只學會幾種能騙過判別器的圖，多樣性反而下降。</li>
+      </ul>
+    </section>
+
+    <section id="related">
+      <h2>相關名詞</h2>
+      <div id="related-list" class="card-grid small"></div>
+    </section>
+
+    <section id="references">
+      <h2>延伸閱讀</h2>
+      <ul>
+        <li>Goodfellow et al.（2014）．<a href="https://arxiv.org/abs/1406.2661">〈Generative Adversarial Networks〉</a></li>
+        <li>Karras, Laine &amp; Aila（2019）．<a href="https://arxiv.org/abs/1812.04948">〈A Style-Based Generator Architecture for Generative Adversarial Networks〉</a></li>
+      </ul>
+    </section>
+
+    <nav id="pager" class="pager" aria-label="上一個與下一個名詞"></nav>
+  </main>
+
+  <div id="site-footer"></div>
+  <script src="../data/terms.js"></script>
+  <script src="../assets/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>關於本站｜AI 名詞小百科</title>
+  <meta name="description" content="AI 名詞小百科的編寫規範：如何用 CLAUDE.md 讓 AI 依照同一套規則持續新增名詞頁。">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="about" data-root=".">
+  <div id="site-header"></div>
+
+  <main class="container prose">
+    <section class="hero">
+      <h1>關於本站</h1>
+      <p>這是一個用「規則文件 + AI 協作」維護的生成式 AI 名詞百科。重點不只是把網頁做出來，而是建立一套讓 AI 能照著繼續擴充的規則。</p>
+    </section>
+
+    <h2>每一頁都長得一樣</h2>
+    <p>所有名詞頁都依照同一份樣板，固定八個章節，讀者換到任何一頁都知道去哪裡找答案：</p>
+    <table>
+      <thead><tr><th>#</th><th>章節</th><th>用途</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>一句話定義</td><td>40 字以內抓住核心</td></tr>
+        <tr><td>2</td><td>白話比喻</td><td>用生活例子建立直覺</td></tr>
+        <tr><td>3</td><td>運作原理</td><td>3–5 個編號步驟</td></tr>
+        <tr><td>4</td><td>關鍵公式（選填）</td><td>純文字公式 + 一句白話解釋</td></tr>
+        <tr><td>5</td><td>代表模型與應用</td><td>名稱、年份、一句說明</td></tr>
+        <tr><td>6</td><td>常見誤解</td><td>「誤解／其實」成對</td></tr>
+        <tr><td>7</td><td>相關名詞</td><td>由資料檔自動產生</td></tr>
+        <tr><td>8</td><td>延伸閱讀</td><td>原始論文連結</td></tr>
+      </tbody>
+    </table>
+
+    <h2>資料與頁面分離</h2>
+    <p>所有名詞的名稱、分類、難度、摘要與相關名詞，都集中登錄在 <code>data/terms.js</code>。首頁卡片、搜尋、分類篩選、名詞頁的相關名詞與上一個／下一個導覽，全部由 <code>assets/main.js</code> 依這份資料自動產生，所以不會出現「改了一頁、忘了改首頁」的不同步問題。</p>
+
+    <h2>新增一個名詞只要兩步</h2>
+    <ol>
+      <li>複製 <code>templates/term-template.html</code> 成 <code>terms/&lt;slug&gt;.html</code>，填好八個章節。</li>
+      <li>在 <code>data/terms.js</code> 加一筆資料，並把相關名詞設成雙向。</li>
+    </ol>
+    <p>完成後執行 <code>node scripts/check-terms.js</code>，它會檢查欄位、檔名、章節順序與相關名詞是否雙向。完整規則請見專案中的 <code>CLAUDE.md</code>。</p>
+  </main>
+
+  <div id="site-footer"></div>
+  <script src="data/terms.js"></script>
+  <script src="assets/main.js"></script>
+</body>
+</html>

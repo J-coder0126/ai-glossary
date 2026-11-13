@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI 名詞小百科</title>
+  <meta name="description" content="生成式 AI 名詞解釋網站：用比喻、步驟與公式，3 分鐘看懂 Transformer、擴散模型、GAN 等核心概念。">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="home" data-root=".">
+  <div id="site-header"></div>
+
+  <main class="container wide">
+    <section class="hero">
+      <h1>生成式 AI，一個名詞一個名詞看懂</h1>
+      <p>每頁用「一句話定義 → 白話比喻 → 運作原理 → 代表模型 → 常見誤解」的固定結構，帶你快速掌握文字與影像生成的核心概念。</p>
+      <input id="search" class="search" type="search" placeholder="搜尋名詞，例如：擴散、GAN、attention…" aria-label="搜尋名詞">
+      <div id="category-chips" class="chips" role="group" aria-label="分類篩選"></div>
+      <div id="result-count" class="result-count"></div>
+    </section>
+
+    <div id="term-grid" class="card-grid"></div>
+  </main>
+
+  <div id="site-footer"></div>
+  <script src="data/terms.js"></script>
+  <script src="assets/main.js"></script>
+</body>
+</html>
